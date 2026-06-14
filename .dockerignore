@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# MLflow local tracking
+mlflow.db
+mlruns/
+mlartifacts/
+
+# Secrets and local env
+.env
+.env.*
+
+# Training data (not needed at inference runtime)
+data/raw/
+data/processed/
+
+# Dev / VCS / docs
+.git/
+.gitignore
+docs/
+tests/

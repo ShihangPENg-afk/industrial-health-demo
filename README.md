@@ -59,6 +59,43 @@ MLFLOW_UI_HOST=0.0.0.0 MLFLOW_UI_PORT=5001 bash scripts/start_mlflow_ui.sh
 - [x] 模型训练（Day2）
 - [x] MLflow 实验记录（Day3）
 
+## Docker 部署（Day5）
+
+使用 Docker 启动推理 API（需已存在 `artifacts/` 模型产物）：
+
+```bash
+docker compose up --build -d
+```
+
+或使用 Makefile：
+
+```bash
+make docker-up
+```
+
+验证服务：
+
+```bash
+curl http://127.0.0.1:8010/health
+curl http://127.0.0.1:8010/model-info
+python scripts/sample_predict.py
+```
+
+一键验收：
+
+```bash
+make docker-verify
+```
+
+查看日志与停止：
+
+```bash
+docker compose logs -f industrial-health-api
+docker compose down
+```
+
+镜像仅包含 `app/`、`artifacts/`、`scripts/` 与运行依赖，不会打包 `.venv`、`.env`、`mlflow.db`、`mlruns/` 及训练数据目录。
+
 ## 数据说明
 
 `manufacturing_quality.csv` 包含产线传感器特征与 `target` 标签：
