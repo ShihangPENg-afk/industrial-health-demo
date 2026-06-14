@@ -1,0 +1,25 @@
+{
+  "target_column": "target",
+  "feature_columns": [
+    "temperature",
+    "pressure",
+    "vibration",
+    "speed",
+    "humidity"
+  ],
+  "numeric_features": [
+    "temperature",
+    "pressure",
+    "vibration",
+    "speed",
+    "humidity"
+  ],
+  "categorical_features": [],
+  "classes": [
+    "defect",
+    "normal"
+  ],
+  "model_type": "RandomForestClassifier",
+  "test_size": 0.2,
+  "random_state": 42
+}
