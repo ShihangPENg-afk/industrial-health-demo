@@ -17,7 +17,7 @@
 | vibration   | float64 |
 | speed       | float64 |
 | humidity    | float64 |
-| target      | str     |
+| target      | object  |
 
 ## Missing Values
 

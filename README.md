@@ -1,6 +1,16 @@
 # Industrial Health Demo
 
+> 项目仓库：https://github.com/ShihangPENg-afk/industrial-health-demo
+
 工业制造质量分类 Mini Demo：从 EDA、模型训练、MLflow 实验追踪到 FastAPI 推理服务与 Docker 部署的完整链路示例。
+
+## 关联 GitHub 仓库
+
+| 仓库 | GitHub | 说明 |
+|------|--------|------|
+| **industrial-health-demo** | https://github.com/ShihangPENg-afk/industrial-health-demo | 本仓库：工业 ML 训练与推理 API |
+| **rag-agent** | https://github.com/ShihangPENg-afk/rag-agent | Agentic RAG 主应用；通过 HTTP 调用本服务 |
+| **llm-finetune-manual** | https://github.com/ShihangPENg-afk/llm-finetune-manual | LoRA 微调实验（与工业预测链路无关） |
 
 > **定位说明**：本项目用于演示工业预测项目的工程化流程，**不是生产级模型**，也**不追求 SOTA 指标**。目标是展示数据探索、训练、实验记录与 API 部署的标准做法。
 
@@ -34,6 +44,13 @@
 当前数据集规模：**500 行 × 6 列**，无缺失值。类别分布略不均衡（normal 约 65%，defect 约 35%）。详见 `docs/eda_summary.md` 与 `docs/experiment_report.md`。
 
 ## EDA 方法
+
+克隆本仓库：
+
+```bash
+git clone https://github.com/ShihangPENg-afk/industrial-health-demo.git
+cd industrial-health-demo
+```
 
 运行探索性数据分析：
 
@@ -195,7 +212,7 @@ python scripts/sample_predict.py
 
 ## 与 rag-agent 的集成
 
-本服务与 [rag-agent](../rag-agent) **解耦部署**（独立仓库、HTTP 调用，无共享代码或数据库）：
+本服务与 [rag-agent](https://github.com/ShihangPENg-afk/rag-agent) **解耦部署**（独立仓库、HTTP 调用，无共享代码或数据库）：
 
 | 服务 | 端口 | 集成方式 |
 |------|------|----------|
@@ -203,7 +220,7 @@ python scripts/sample_predict.py
 | rag-agent | 8000 | Agent 工具 `check_machine_health` HTTP 调用本服务 |
 | Streamlit UI | 8501 | 「设备健康预测」Tab 直连 `HEALTH_API_URL` |
 
-详见 rag-agent 文档：[industrial_demo_guide.md](../rag-agent/docs/industrial_demo_guide.md)。
+详见 rag-agent 文档：[industrial_demo_guide.md](https://github.com/ShihangPENg-afk/rag-agent/blob/main/docs/industrial_demo_guide.md)。
 
 ## 后续计划
 
