@@ -202,6 +202,8 @@ def health() -> dict[str, str]:
 def model_info() -> dict[str, Any]:
     return {
         "features": state.schema.get("features", []),
+        "numeric_features": state.schema.get("numeric_features", []),
+        "categorical_features": state.schema.get("categorical_features", []),
         "classes": state.schema.get("classes", []),
         "metrics": {
             key: state.metrics[key]

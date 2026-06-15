@@ -1,9 +1,12 @@
-.PHONY: docker-build docker-up docker-down docker-logs docker-verify
+.PHONY: train docker-build docker-up docker-down docker-logs docker-verify
 
-docker-build:
+train:
+	@test -f artifacts/model.pkl || python3 scripts/train_model.py
+
+docker-build: train
 	docker compose build
 
-docker-up:
+docker-up: train
 	docker compose up --build -d
 
 docker-down:
