@@ -10,8 +10,8 @@ A mini end-to-end demo for manufacturing quality classification: EDA, model trai
 | Repository | GitHub | Description |
 |------------|--------|-------------|
 | **predictive-maintenance-mini** | https://github.com/ShihangPENg-afk/predictive-maintenance-mini | This repo: industrial ML training & inference API |
-| **rag-agent** | https://github.com/ShihangPENg-afk/rag-agent | Agentic RAG app; calls this service over HTTP |
-| **llm-finetune-manual** | https://github.com/ShihangPENg-afk/llm-finetune-manual | LoRA fine-tuning experiments (unrelated to this pipeline) |
+| **rag-agentic-system** | https://github.com/ShihangPENg-afk/rag-agentic-system | Agentic RAG app; calls this service over HTTP |
+| **llm-finetune-for-manufacturing** | https://github.com/ShihangPENg-afk/llm-finetune-for-manufacturing | LoRA fine-tuning experiments (unrelated to this pipeline) |
 
 > **Scope**: This project demonstrates an industrial prediction workflow. It is **not a production-grade model** and the baseline is **not tuned for SOTA**.
 
@@ -191,17 +191,17 @@ Full report: [`docs/experiment_report.md`](docs/experiment_report.md). **Not for
 - Low defect recall under class imbalance
 - Static `artifacts/` only; no online retraining or A/B deployment
 
-## Integration with rag-agent
+## Integration with rag-agentic-system
 
 Decoupled HTTP deployment (separate repos, no shared code or DB):
 
 | Service | Port | Role |
 |---------|------|------|
 | predictive-maintenance-mini | 8010 | `/health`, `/model-info`, `POST /predict` |
-| rag-agent | 8000 | Agent tool `check_machine_health` calls this API |
+| rag-agentic-system | 8000 | Agent tool `check_machine_health` calls this API |
 | Streamlit UI | 8501 | "Device health" tab via `HEALTH_API_URL` |
 
-See [industrial_demo_guide.md](https://github.com/ShihangPENg-afk/rag-agent/blob/main/docs/industrial_demo_guide.md) in rag-agent.
+See [industrial_demo_guide.md](https://github.com/ShihangPENg-afk/rag-agentic-system/blob/main/docs/industrial_demo_guide.md) in rag-agentic-system.
 
 ## Roadmap
 
@@ -218,7 +218,7 @@ Add screenshots to `docs/images/` for portfolios or demos:
 |-------|----------------|----------------|
 | Swagger UI | `docs/images/swagger_docs.png` | http://127.0.0.1:8010/docs |
 | MLflow UI | `docs/images/mlflow_ui.png` | After `bash scripts/start_mlflow_ui.sh` |
-| rag-agent tab | `docs/images/rag_agent_tab.png` | Streamlit "device health" tab in rag-agent |
+| rag-agentic-system tab | `docs/images/rag_agent_tab.png` | Streamlit "device health" tab in rag-agentic-system |
 
 ## Project Layout
 

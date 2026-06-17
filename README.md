@@ -10,8 +10,8 @@
 | 仓库 | GitHub | 说明 |
 |------|--------|------|
 | **predictive-maintenance-mini** | https://github.com/ShihangPENg-afk/predictive-maintenance-mini | 本仓库：工业 ML 训练与推理 API |
-| **rag-agent** | https://github.com/ShihangPENg-afk/rag-agent | Agentic RAG 主应用；通过 HTTP 调用本服务 |
-| **llm-finetune-manual** | https://github.com/ShihangPENg-afk/llm-finetune-manual | LoRA 微调实验（与工业预测链路无关） |
+| **rag-agentic-system** | https://github.com/ShihangPENg-afk/rag-agentic-system | Agentic RAG 主应用；通过 HTTP 调用本服务 |
+| **llm-finetune-for-manufacturing** | https://github.com/ShihangPENg-afk/llm-finetune-for-manufacturing | LoRA 微调实验（与工业预测链路无关） |
 
 > **定位说明**：本项目用于演示工业预测项目的工程化流程，**不是生产级模型**，**baseline 未针对 SOTA 调优**。目标是展示数据探索、训练、实验记录与 API 部署的标准做法。
 
@@ -242,24 +242,24 @@ pytest tests/
 
 更详细的实验结论与后续计划见 [`docs/experiment_report.md`](docs/experiment_report.md)。
 
-## 与 rag-agent 的集成
+## 与 rag-agentic-system 的集成
 
-本服务与 [rag-agent](https://github.com/ShihangPENg-afk/rag-agent) **解耦部署**（独立仓库、HTTP 调用，无共享代码或数据库）：
+本服务与 [rag-agentic-system](https://github.com/ShihangPENg-afk/rag-agentic-system) **解耦部署**（独立仓库、HTTP 调用，无共享代码或数据库）：
 
 | 服务 | 端口 | 集成方式 |
 |------|------|----------|
 | predictive-maintenance-mini | 8010 | 提供 `/health`、`/model-info`、`POST /predict` |
-| rag-agent | 8000 | Agent 工具 `check_machine_health` HTTP 调用本服务 |
+| rag-agentic-system | 8000 | Agent 工具 `check_machine_health` HTTP 调用本服务 |
 | Streamlit UI | 8501 | 「设备健康预测」Tab 直连 `HEALTH_API_URL` |
 
-详见 rag-agent 文档：[industrial_demo_guide.md](https://github.com/ShihangPENg-afk/rag-agent/blob/main/docs/industrial_demo_guide.md)。
+详见 rag-agentic-system 文档：[industrial_demo_guide.md](https://github.com/ShihangPENg-afk/rag-agentic-system/blob/main/docs/industrial_demo_guide.md)。
 
 ## 后续计划
 
 - 扩展特征工程与超参搜索；**新增 XGBoost / LightGBM baseline 对比**
 - 将 `model.pkl` 迁至 Release 分发（可选），减小仓库体积
 - 增加 GitHub Actions CI（`pytest` + Docker 冒烟测试）
-- 补充 MLflow UI、Swagger `/docs`、rag-agent 联调截图（见下方「可选展示素材」）
+- 补充 MLflow UI、Swagger `/docs`、rag-agentic-system 联调截图（见下方「可选展示素材」）
 
 ## 可选展示素材（需手动添加）
 
@@ -269,7 +269,7 @@ pytest tests/
 |------|------------|----------|
 | API 文档页 | `docs/images/swagger_docs.png` | 启动服务后打开 <http://127.0.0.1:8010/docs> 截图 |
 | MLflow 实验页 | `docs/images/mlflow_ui.png` | `bash scripts/start_mlflow_ui.sh` 后打开 <http://127.0.0.1:5001> |
-| rag-agent 联调 | `docs/images/rag_agent_tab.png` | 在 [rag-agent](https://github.com/ShihangPENg-afk/rag-agent) 启动后打开 Streamlit「设备健康预测」Tab |
+| rag-agentic-system 联调 | `docs/images/rag_agent_tab.png` | 在 [rag-agentic-system](https://github.com/ShihangPENg-afk/rag-agentic-system) 启动后打开 Streamlit「设备健康预测」Tab |
 
 ## 项目结构
 

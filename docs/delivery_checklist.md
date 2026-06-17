@@ -10,7 +10,7 @@
 | EDA 与训练 | 已完成 |
 | FastAPI 推理 | 已完成 |
 | Docker 部署 | 已完成 |
-| 与 rag-agent 联动 | 已完成（HTTP 松耦合） |
+| 与 rag-agentic-system 联动 | 已完成（HTTP 松耦合） |
 
 ---
 
@@ -32,16 +32,16 @@
 - [x] `make docker-up` 构建并启动 `:8010`
 - [x] `make docker-verify` 通过（建议 `docker-up` 后等待数秒再 verify）
 
-## 4. rag-agent 联动
+## 4. rag-agentic-system 联动
 
-- [x] rag-agent [`check_machine_health`](https://github.com/ShihangPENg-afk/rag-agent/blob/main/app/tools/machine_health_tool.py) 调用 `POST /predict`
-- [x] [`make stack-verify`](https://github.com/ShihangPENg-afk/rag-agent)（在 rag-agent 仓库）双服务通过
+- [x] rag-agentic-system [`check_machine_health`](https://github.com/ShihangPENg-afk/rag-agentic-system/blob/main/app/tools/machine_health_tool.py) 调用 `POST /predict`
+- [x] [`make stack-verify`](https://github.com/ShihangPENg-afk/rag-agentic-system)（在 rag-agentic-system 仓库）双服务通过
 
 **推荐验收命令：**
 
 ```bash
 make docker-up && sleep 5 && make docker-verify
-cd ../rag-agent && make stack-verify   # 需先 clone https://github.com/ShihangPENg-afk/rag-agent
+cd ../rag-agentic-system && make stack-verify   # 需先 clone https://github.com/ShihangPENg-afk/rag-agentic-system
 ```
 
 ## 当前未完成项

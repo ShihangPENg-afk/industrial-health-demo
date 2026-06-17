@@ -45,9 +45,9 @@ python scripts/sample_predict.py
 make docker-verify   # 含 health + model-info + predict
 ```
 
-## 与 rag-agent 联动
+## 与 rag-agentic-system 联动
 
-rag-agent 通过 `HEALTH_API_URL`（默认 `http://127.0.0.1:8010`）调用本服务；Agent 工具名为 `check_machine_health`。两仓库无共享代码或数据库。详见 [rag-agent 工业联动文档](https://github.com/ShihangPENg-afk/rag-agent/blob/main/docs/industrial_demo_guide.md)。
+rag-agentic-system 通过 `HEALTH_API_URL`（默认 `http://127.0.0.1:8010`）调用本服务；Agent 工具名为 `check_machine_health`。两仓库无共享代码或数据库。详见 [rag-agentic-system 工业联动文档](https://github.com/ShihangPENg-afk/rag-agentic-system/blob/main/docs/industrial_demo_guide.md)。
 
 ## 限制
 
