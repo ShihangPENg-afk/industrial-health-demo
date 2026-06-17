@@ -13,7 +13,7 @@ docker-down:
 	docker compose down
 
 docker-logs:
-	docker compose logs -f industrial-health-api
+	docker compose logs -f predictive-maintenance-api
 
 docker-verify:
 	curl -fsS http://127.0.0.1:8010/health

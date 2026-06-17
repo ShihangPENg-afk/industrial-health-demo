@@ -1,7 +1,7 @@
 services:
-  industrial-health-api:
+  predictive-maintenance-api:
     build: .
-    container_name: industrial-health-api
+    container_name: predictive-maintenance-api
     ports:
       - "8010:8010"
     restart: unless-stopped

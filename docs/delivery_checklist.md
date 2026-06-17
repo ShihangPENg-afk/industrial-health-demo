@@ -1,4 +1,4 @@
-# industrial-health-demo 验收清单
+# predictive-maintenance-mini 验收清单
 
 > 最后核对：2026-06-15  
 > 关联文档：[README.md](../README.md) · [api_guide.md](api_guide.md)

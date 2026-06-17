@@ -1,6 +1,6 @@
 # 实验报告：Manufacturing Quality Classification
 
-本文档记录 `industrial-health-demo` 在当前数据集与默认训练配置下的实验结果。数据与指标来自 `data/raw/manufacturing_quality.csv` 与 `artifacts/metrics.json`（由 `scripts/train_model.py` 生成）。
+本文档记录 `predictive-maintenance-mini` 在当前数据集与默认训练配置下的实验结果。数据与指标来自 `data/raw/manufacturing_quality.csv` 与 `artifacts/metrics.json`（由 `scripts/train_model.py` 生成）。
 
 ## 1. 数据集规模
 
@@ -9,7 +9,7 @@
 | 行数 | 500 |
 | 列数 | 6（5 个特征 + 1 个标签） |
 | 缺失值 | 无 |
-| 数据源 | `data/raw/manufacturing_quality.csv` |
+| 数据源 | 模拟数据（`scripts/generate_sample_data.py` → `data/raw/manufacturing_quality.csv`） |
 
 特征列均为 `float64`，标签列 `target` 为字符串类型。
 
@@ -108,7 +108,7 @@ SimpleImputer(strategy="most_frequent") → OneHotEncoder(handle_unknown="ignore
 | 项目 | 值 |
 |------|-----|
 | Tracking URI | `sqlite:///<项目根>/mlflow.db` |
-| Experiment | `industrial-health-demo` |
+| Experiment | `predictive-maintenance-mini` |
 
 **记录的 Params：**
 

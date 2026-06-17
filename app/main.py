@@ -183,7 +183,7 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(
-    title="Industrial Health Prediction API",
+    title="Predictive Maintenance API",
     description="Manufacturing quality classification inference service.",
     version="1.0.0",
     lifespan=lifespan,

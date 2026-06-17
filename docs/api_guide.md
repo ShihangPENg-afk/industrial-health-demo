@@ -1,4 +1,4 @@
-# Industrial Health API 指南
+# Predictive Maintenance API 指南
 
 > 关联文档：[README.md](../README.md) · [experiment_report.md](experiment_report.md)
 

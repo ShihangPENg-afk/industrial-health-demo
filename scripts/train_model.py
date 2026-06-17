@@ -28,7 +28,7 @@ METRICS_PATH = ARTIFACTS_DIR / "metrics.json"
 SCHEMA_PATH = ARTIFACTS_DIR / "schema.json"
 MLFLOW_DB_PATH = PROJECT_ROOT / "mlflow.db"
 MLFLOW_TRACKING_URI = f"sqlite:///{MLFLOW_DB_PATH.resolve().as_posix()}"
-MLFLOW_EXPERIMENT = "industrial-health-demo"
+MLFLOW_EXPERIMENT = "predictive-maintenance-mini"
 
 # 与 scripts/eda.py 保持一致；若 CSV 目标列不在列表中，请在此追加
 TARGET_CANDIDATES = [

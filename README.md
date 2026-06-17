@@ -1,6 +1,7 @@
-# Industrial Health Demo
+# Predictive Maintenance Mini
 
-> 项目仓库：https://github.com/ShihangPENg-afk/industrial-health-demo
+> 项目仓库：https://github.com/ShihangPENg-afk/predictive-maintenance-mini  
+> English README: [README.en.md](README.en.md)
 
 工业制造质量分类 Mini Demo：从 EDA、模型训练、MLflow 实验追踪到 FastAPI 推理服务与 Docker 部署的完整链路示例。
 
@@ -8,7 +9,7 @@
 
 | 仓库 | GitHub | 说明 |
 |------|--------|------|
-| **industrial-health-demo** | https://github.com/ShihangPENg-afk/industrial-health-demo | 本仓库：工业 ML 训练与推理 API |
+| **predictive-maintenance-mini** | https://github.com/ShihangPENg-afk/predictive-maintenance-mini | 本仓库：工业 ML 训练与推理 API |
 | **rag-agent** | https://github.com/ShihangPENg-afk/rag-agent | Agentic RAG 主应用；通过 HTTP 调用本服务 |
 | **llm-finetune-manual** | https://github.com/ShihangPENg-afk/llm-finetune-manual | LoRA 微调实验（与工业预测链路无关） |
 
@@ -30,7 +31,17 @@
 
 ## 数据集说明
 
-原始数据位于 `data/raw/manufacturing_quality.csv`：
+**数据来源**：仓库内 CSV 为**可复现的模拟数据**（非真实工厂数据，无第三方数据版权风险）。由 `scripts/generate_sample_data.py` 按传感器分布与缺陷概率规则生成（`random_state=42`，500 行）。
+
+重新生成数据：
+
+```bash
+python scripts/generate_sample_data.py
+python scripts/eda.py
+python scripts/train_model.py
+```
+
+当前数据文件：`data/raw/manufacturing_quality.csv`：
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -48,8 +59,8 @@
 克隆本仓库：
 
 ```bash
-git clone https://github.com/ShihangPENg-afk/industrial-health-demo.git
-cd industrial-health-demo
+git clone https://github.com/ShihangPENg-afk/predictive-maintenance-mini.git
+cd predictive-maintenance-mini
 ```
 
 运行探索性数据分析：
@@ -81,7 +92,7 @@ python scripts/train_model.py
 3. **预处理**：
    - 数值：`SimpleImputer(median)` → `StandardScaler`
    - 类别：`SimpleImputer(most_frequent)` → `OneHotEncoder(handle_unknown="ignore")`
-4. **模型**：`RandomForestClassifier`（`n_estimators=200`，`class_weight="balanced"`，`random_state=42`）
+4. **模型（当前 baseline）**：`RandomForestClassifier`（`n_estimators=200`，`class_weight="balanced"`，`random_state=42`）。**尚未实现 XGBoost / LightGBM 对比**，见「后续计划」。
 5. **划分**：80/20 分层抽样（`test_size=0.2`，`stratify=y`）
 6. **评估**：计算 `accuracy`、`f1_macro` 及完整 classification report
 7. **保存**：写入 `artifacts/` 并在 MLflow 中记录一次 run
@@ -96,7 +107,7 @@ make train
 
 训练脚本会将每次 run 写入本地 SQLite 后端 `mlflow.db`（已加入 `.gitignore`）：
 
-- **Experiment 名称**：`industrial-health-demo`
+- **Experiment 名称**：`predictive-maintenance-mini`
 - **记录参数**：`model_type`、`n_estimators`、`test_size`、`random_state`、`target_column`
 - **记录指标**：`accuracy`、`f1_macro`
 - **记录产物**：`model.pkl`、`metrics.json`、`schema.json`
@@ -200,6 +211,15 @@ python scripts/sample_predict.py
 
 交互式 API 文档：<http://127.0.0.1:8010/docs>
 
+## 运行测试
+
+```bash
+pip install -r requirements.txt
+pytest tests/
+```
+
+覆盖 `/health`、`/model-info`、`/predict` 及缺失特征 422 响应。
+
 ## 实验结果摘要
 
 当前 baseline（RandomForest，`artifacts/metrics.json`，500 行数据、80/20 分层划分）：
@@ -228,7 +248,7 @@ python scripts/sample_predict.py
 
 | 服务 | 端口 | 集成方式 |
 |------|------|----------|
-| industrial-health-demo | 8010 | 提供 `/health`、`/model-info`、`POST /predict` |
+| predictive-maintenance-mini | 8010 | 提供 `/health`、`/model-info`、`POST /predict` |
 | rag-agent | 8000 | Agent 工具 `check_machine_health` HTTP 调用本服务 |
 | Streamlit UI | 8501 | 「设备健康预测」Tab 直连 `HEALTH_API_URL` |
 
@@ -236,25 +256,43 @@ python scripts/sample_predict.py
 
 ## 后续计划
 
-- 固定 scikit-learn 版本，消除 Docker 与本地训练环境不一致警告
-- 扩展特征工程与超参搜索；评估 XGBoost / LightGBM 等模型
+- 扩展特征工程与超参搜索；**新增 XGBoost / LightGBM baseline 对比**
 - 将 `model.pkl` 迁至 Release 分发（可选），减小仓库体积
-- 增加 CI 与 API 回归测试
+- 增加 GitHub Actions CI（`pytest` + Docker 冒烟测试）
+- 补充 MLflow UI、Swagger `/docs`、rag-agent 联调截图（见下方「可选展示素材」）
+
+## 可选展示素材（需手动添加）
+
+以下截图可放入 `docs/images/` 并在 README 中引用，便于作品集或答辩展示（本仓库暂不内置图片）：
+
+| 素材 | 建议文件名 | 获取方式 |
+|------|------------|----------|
+| API 文档页 | `docs/images/swagger_docs.png` | 启动服务后打开 <http://127.0.0.1:8010/docs> 截图 |
+| MLflow 实验页 | `docs/images/mlflow_ui.png` | `bash scripts/start_mlflow_ui.sh` 后打开 <http://127.0.0.1:5001> |
+| rag-agent 联调 | `docs/images/rag_agent_tab.png` | 在 [rag-agent](https://github.com/ShihangPENg-afk/rag-agent) 启动后打开 Streamlit「设备健康预测」Tab |
 
 ## 项目结构
 
 ```
-industrial-health-demo/
+predictive-maintenance-mini/
 ├── app/                      # FastAPI 推理服务
 ├── artifacts/                # 模型、指标、schema
-├── data/raw/                 # 原始 CSV
+├── data/raw/                 # 模拟 CSV
 ├── docs/                     # EDA 与实验报告
 ├── scripts/
+│   ├── generate_sample_data.py
 │   ├── eda.py
 │   ├── train_model.py
 │   ├── start_mlflow_ui.sh
 │   └── sample_predict.py
+├── tests/                    # API 冒烟测试
+├── LICENSE
+├── README.en.md              # English README
 ├── Dockerfile
 ├── docker-compose.yml
 └── Makefile
 ```
+
+## License
+
+MIT — 详见 [LICENSE](LICENSE)。
